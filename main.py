@@ -4,18 +4,21 @@ import math
 from settings import *
 from button import Button
 import random
+import os
+
+preliminary_dir = dir_path = os.path.dirname(os.path.realpath(__file__))
 
 pygame.init()
 
 pygame.display.set_caption("Lockdown Zombie Simulator")
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-BG = pygame.transform.scale(pygame.image.load("Pygame/Assets/Background/Background.png"), (1540, 810))
+BG = pygame.transform.scale(pygame.image.load(preliminary_dir + "/Assets/Background/Background.png"), (1540, 810))
 
 WIDTH, HEIGHT = screen.get_size()
 
 def get_font(size):
-    return pygame.font.Font("Pygame/Assets/Fonts/font.ttf", size)
+    return pygame.font.Font(preliminary_dir + "/Assets/Fonts/font.ttf", size)
 
 def play():
     shop_menu_open = False
@@ -24,20 +27,20 @@ def play():
     tilesX = math.ceil(WIDTH / 512)
     tilesY = math.ceil(HEIGHT / 288)
 
-    background = pygame.image.load("Pygame/Assets/Background/pixel_art_floor_board.jpg").convert()
+    background = pygame.image.load(preliminary_dir + "/Assets/Background/pixel_art_floor_board.jpg").convert()
 
 
     zombie_img = pygame.image.load(
-        "Pygame/Assets/Character/Normal Zombie One.png").convert_alpha()
+        preliminary_dir + "/Assets/Character/Normal Zombie One.png").convert_alpha()
     zombie_img = pygame.transform.scale(zombie_img, (64, 64))
     zombie_img_2 = pygame.image.load(
-        "Pygame/Assets/Character/Knight Zombie One.png").convert_alpha()
+        preliminary_dir + "/Assets/Character/Knight Zombie One.png").convert_alpha()
     zombie_img_2 = pygame.transform.scale(zombie_img_2, (64, 64))
     zombie_img_3 = pygame.image.load(
-        "Pygame/Assets/Character/Gang Gang Zombie One.png").convert_alpha()
+        preliminary_dir + "/Assets/Character/Gang Gang Zombie One.png").convert_alpha()
     zombie_img_3 = pygame.transform.scale(zombie_img_3, (64, 64))
     zombie_img_4 = pygame.image.load(
-        "Pygame/Assets/Character/Boss One.png").convert_alpha()
+        preliminary_dir + "/Assets/Character/Boss One.png").convert_alpha()
     zombie_img_4 = pygame.transform.scale(zombie_img_4, (120, 120))
 
 
@@ -292,7 +295,7 @@ def play():
 
         # Draw player
         player_image = pygame.image.load(
-            "Pygame/Assets/Character/MC.png").convert_alpha()
+            preliminary_dir + "/Assets/Character/MC.png").convert_alpha()
         player_image_2 = pygame.transform.scale(player_image, (80, 80))
         screen.blit(player_image_2, (player_x, player_y))
 
@@ -380,9 +383,9 @@ def main_menu():
         MENU_TEXT = get_font(100).render("Zombie Slayer", True, "#781A05")
         MENU_RECT = MENU_TEXT.get_rect(center=(770, 100))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("Pygame/Assets/Buttons/Play Rect.png"), pos=(770, 300),
+        PLAY_BUTTON = Button(image=pygame.image.load(preliminary_dir + "/Assets/Buttons/Play Rect.png"), pos=(770, 300),
                              text_input="PLAY", font=get_font(75), base_color="#781A05", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("Pygame/Assets/Buttons/Quit Rect.png"), pos=(770, 600),
+        QUIT_BUTTON = Button(image=pygame.image.load(preliminary_dir + "/Assets/Buttons/Quit Rect.png"), pos=(770, 600),
                              text_input="QUIT", font=get_font(75), base_color="#781A05", hovering_color="White")
 
         screen.blit(MENU_TEXT, MENU_RECT)
