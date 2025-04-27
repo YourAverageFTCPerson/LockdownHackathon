@@ -3,6 +3,9 @@ import math
 from settings import *
 from button import Button
 import random
+import threading
+import socket
+
 
 pygame.init()
 
@@ -15,6 +18,39 @@ WIDTH, HEIGHT = screen.get_size()
 
 def get_font(size):
     return pygame.font.Font("Assets/Fonts/font.ttf", size)
+
+
+
+PLAYER_IMAGE = pygame.image.load("Pygame/Assets/Character/MC.png").convert_alpha();
+
+
+def get_player_image():  # TODO
+    print("get_player_image()")
+    return PLAYER_IMAGE
+
+
+# Orientation ccw rad
+def draw_player(x, y, orientation):
+    screen.blit(get_player_image(), (x, y))
+
+
+player_x = 0
+player_y = 0
+orientation = 0
+
+
+def reoccuring(s):
+    while True:
+        s.sendall((str(player_x) + "," + str(player_y) + "," + str(orientation) + '\n').encode())
+
+def client_side(s, running):
+    while running:
+        x, y, orientation = s.recv(128).decode("utf-8").split(",")
+        draw_player(float(x), float(y), float(orientation))
+
+
+
+
 
 def script():
     pygame.font.init()
@@ -52,6 +88,14 @@ def script():
 
 
 def play():
+    global player_x
+    global player_y
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((SERVER_IP, 5008))
+    s.sendall((input("username> ") + '\n').encode())
+
+    threading.Thread(target=reoccuring, args=(s,)).start()
+    
     shop_menu_open = False
     pygame.font.init()
 
