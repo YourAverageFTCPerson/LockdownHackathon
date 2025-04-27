@@ -3,7 +3,7 @@ import pygame
 
 # Set up the client
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(("10.224.91.107", 12345))  # Connect to the server (replace with actual server IP)
+client.connect(("10.224.91.107", 32653))  # Connect to the server (replace with actual server IP)
 
 # Initialize Pygame
 pygame.init()

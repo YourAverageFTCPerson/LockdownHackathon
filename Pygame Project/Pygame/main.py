@@ -3,7 +3,6 @@ import math
 from settings import *
 from button import Button
 import random
-import socket
 
 pygame.init()
 
@@ -16,6 +15,41 @@ WIDTH, HEIGHT = screen.get_size()
 
 def get_font(size):
     return pygame.font.Font("Assets/Fonts/font.ttf", size)
+
+def script():
+    pygame.font.init()
+    font = pygame.font.SysFont('simsun', 36)
+    while True:
+        screen.blit(BG, (0, 0))
+        text = get_font(35).render("In the year 2043, an e-virus has taken over the world.", True, "#781A05")
+        screen.blit(text, (30, 100))
+        text_2 = get_font(35).render("With the world on the brink of collapse,", True, "#781A05")
+        screen.blit(text_2, (30, 200))
+        text_3 = get_font(35).render("a new game emerges. ZOMBIE SLAYER", True, "#781A05")
+        screen.blit(text_3, (30, 300))
+        text_4 = get_font(35).render("Credits to google, our team, and pygame.", True, "#781A05")
+        screen.blit(text_4, (30, 400))
+
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        shotgun_button = Button(
+            image=None,
+            pos=(720, 700),
+            text_input="Next",
+            font=font,
+            base_color=(0, 0, 0),
+            hovering_color=(0, 0, 0)
+        )
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if shotgun_button.checkForInput(MENU_MOUSE_POS):
+                    play()
+        shotgun_button.update(screen)
+        pygame.display.update()
+
 
 def play():
     shop_menu_open = False
@@ -73,7 +107,7 @@ def play():
     # Player setup
     player_x, player_y = 400, 300
     player_speed = 5
-    player_health = 100000
+    player_health = 100
     player_coins = 200
     player_damage = 1
 
@@ -585,7 +619,7 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    play()
+                    script()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
